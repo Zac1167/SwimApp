@@ -9,7 +9,6 @@ namespace SwimApp
         static List<string> teamA = new List<string>();
         static List<string> teamB = new List<string>(); 
         static List<string> teamReserves = new List<string>();
-
         static float fastestTime = 99999f;
         static string topSwimmer = "";
         static void OneSwimmer()
@@ -56,21 +55,49 @@ namespace SwimApp
             if (avgTime <= fastestTime)
             {
                 fastestTime = avgTime;
-                topSwimmer = 
+                topSwimmer = swimmerName;
             }
             Console.WriteLine($"{swimmerName} = Team {allocatedTeam}");
         }
+        //Returns a string containing the team lists
+        static string CreateTeamLists()
+        {
+            //Add Team A to the team list
+            string teamLists = "The teams are:\n\nTeam A\n";
+            foreach (string swimmer in teamA)
+            {
+                teamLists += swimmer + "\t";
+            }
+            teamLists += $"\n\nwith {teamB.Count} team member(s)\n\n Team B\n";
+
+            //Add Team B to the team list
+            teamLists = "The teams are:\n\nTeam B\n";
+            foreach (string swimmer in teamB)
+            {
+                teamLists += swimmer + "\t";
+            }
+            teamLists += $"\n\nwith {teamB.Count} team member(s)\n\n Team Reserved\n";
+
+            //Add Team Reserves to the team list
+            teamLists = "The teams are:\n\nTeam Reserves\n";
+            foreach (string swimmer in teamReserves)
+            {
+                teamLists += swimmer + "\t";
+            }
             
+            teamLists += $"\n\nwith {teamReserves.Count} team member(s)\n\n";
+            return teamLists;
+        }
         static void Main(string[] args)
         {
-            string flag = "Stop";
-            while (!flag.Equals(""))
+            string flag = "";
+            while (!flag.Equals("Stop"))
             {
                 OneSwimmer();
                 Console.WriteLine("\nPress 'Enter' to add another swimmer.\nOr type 'Stop' to end.");
                 flag = Console.ReadLine();
             }
-            Console.WriteLine($"The fastest swimmer was {topSwimmer} with an average time of {fastestTime}!");
+            Console.WriteLine($"\nThe fastest swimmer was {topSwimmer} with an average time of {fastestTime}!");
         }
     }
 }
